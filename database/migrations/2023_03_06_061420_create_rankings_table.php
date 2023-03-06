@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('icon_path');
-            $table->rememberToken();
+        Schema::create('rankings', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->dateTime('start');
+            $table->dateTime('end');
+            $table->integer('num_of_participant');
+            $table->foreignId('fish_id')->constrained('fish')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('rankings');
     }
 };
